@@ -1,0 +1,25 @@
+CREATE TABLE author(
+	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    cpf TEXT NOT NULL,
+    name TEXT NOT NULL,
+    age TEXT NOT NULL,
+    bookList TEXT NOT NULL
+);
+
+CREATE TABLE user(
+	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    cpf TEXT NOT NULL,
+    name TEXT NOT NULL,
+    age TEXT NOT NULL,
+    bookList TEXT NOT NULL
+);
+
+CREATE TABLE book(
+	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    authorId INTEGER,
+    isbn TEXT NOT NULL,
+    publicationYear TEXT NOT NULL,
+    
+    FOREIGN KEY (authorId) REFERENCES author(ID)
+);
