@@ -45,7 +45,7 @@ public class AuthorController
         return repository.findAll();
     }
     
-    public void update(String oldCpf, String name, String age)
+    public void update(String oldCpf, String name,String cpf, String age)
     {
         this.remove(oldCpf);
         this.add(name, age, oldCpf);

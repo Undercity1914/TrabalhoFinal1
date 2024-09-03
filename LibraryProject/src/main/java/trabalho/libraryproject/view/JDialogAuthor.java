@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package trabalho.libraryproject.view;
-
-import trabalho.libraryproject.model.entities.Author;
-import trabalho.libraryproject.view.TableModel.TMCadAuthor;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import trabalho.libraryproject.connection.SQLiteConnector;
+import trabalho.libraryproject.controller.AuthorController;
+import trabalho.libraryproject.model.DAO.AuthorDAOFile;
+import trabalho.libraryproject.model.DAO.IDao;
+import trabalho.libraryproject.model.entities.Author;
+import trabalho.libraryproject.model.file.AuthorJSONSerializer;
+import trabalho.libraryproject.view.TableModel.TMCadAuthor;
 
 /**
  *
@@ -15,29 +19,30 @@ import javax.swing.JOptionPane;
  */
 public class JDialogAuthor extends javax.swing.JDialog {
     private boolean editando;
-    private String cpfAntigo;
-   //
+    private String oldCpf;
+    private AuthorController authorController;
+    private Author authorEditing;
     
-    public JDialogAuthor(java.awt.Frame parent, boolean modal) {
+    public JDialogAuthor(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         this.editando = false;
-        this.cpfAntigo = "";
-        //
-        //
-        //
-        //this.authorController = AuthorController(authorDao);
+        this.oldCpf = "";
+        this.authorEditing = new Author();
+        
+        //IDao authorJ = new AuthorJSONSerializer("ListagemAutores.json");
+        SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
+        //IDao authorDao = new AuthorDAOFile(conexao.getConnection()); 
+        this.authorController = new AuthorController(authorDao);
+       
         
         initComponents();
         setLocationRelativeTo(parent);
-        initData();
-    }
-    
-    private void initData(){
+        
+   
         this.habilitarCampos(false);
         this.limparCampos();
         
         this.atualizarTabela();
-        
     }
     
     public void habilitarCampos(boolean flag){
@@ -59,9 +64,8 @@ public class JDialogAuthor extends javax.swing.JDialog {
         edtName.setText(a.getName());
         edtCPF.setText(a.getCpf());
         edtAge.setText(a.getAge());
-        //edtISBN.setText(a.);
+        edtISBN.setText(a.getBooks().toString());
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -252,24 +256,19 @@ public class JDialogAuthor extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        grdAuthor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                grdAuthorMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(grdAuthor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -297,10 +296,10 @@ public class JDialogAuthor extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
        if (this.editando == true){
-         //  this.authorController.atualizarAuthor(cpfAntigo,)
+          this.authorController.update( oldCpf, edtName.getText(), edtCPF.getText(), edtAge.getText());
        }
        else{
-          // this.authorController.addAuthor()
+          this.authorController.add( edtName.getText(), edtCPF.getText(), edtAge.getText());
        }
        this.limparCampos();
        this.habilitarCampos(false);
@@ -316,11 +315,9 @@ public class JDialogAuthor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        Author chosenAuthor =  this.getObjetoSelecionadoNaGrid();
-        
-        String cpfChosen = chosenAuthor.getCpf();
-        
-        Author authorEditing = authorController.findAuthor(cpfChosen);
+         String CPFEscolhido = JOptionPane.showInputDialog("Enter the CPF you want to EDIT:", "");
+
+        this.authorEditing = (Author) this.authorController.find(CPFEscolhido);
         
         if(authorEditing == null){
             JOptionPane.showMessageDialog(this,"There is no author with this cpf.");
@@ -331,33 +328,23 @@ public class JDialogAuthor extends javax.swing.JDialog {
             
             this.objetoParaCampos(authorEditing);
             this.editando = true;
-            this.cpfAntigo = authorEditing.getCpf();
+            this.oldCpf = authorEditing.getCpf();
+            this.atualizarTabela();
         }
-}
-       
+        
+        
+        
     }//GEN-LAST:event_btnEditActionPerformed
-    public Author getObjetoSelecionadoGrind(){
-        int linhaSelecionada = grdAuthor.getSelectedRow();
-        
-        if(linhaSelecionada >= 0){
-        TMCadAuthor tmCadAuthor = (TMCadAuthor) grdAuthor.getModel();
-        Author author = tmCadAuthor.getObjetoAuthor(linhaSelecionada);
-        return author;
-        }
-        return null;
+    
+    
+    public void atualizarTabela() {
+        List<Author> lista = this.authorController.list();
+        TMCadAuthor tmcadAuthor = new TMCadAuthor(lista);
+        grdAuthor.setModel(tmcadAuthor);
     }
-        
-    public void atualizarTabela(){
-        List<Author> lista = this.AuthorController.listarAuthors();
-        TMCadAuthor tmcadauthor = new TMCadAuthor(lista);
-        grdAuthor.setModel(tmcadauthor);
-        }
-        
-    private void grdAuthorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdAuthorMouseClicked
-        Author a = this.getObjetoSelecionadoNaGrid();
-        this.objetoParaCampos(a);
-    }//GEN-LAST:event_grdAuthorMouseClicked
-
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
