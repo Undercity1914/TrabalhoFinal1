@@ -25,6 +25,8 @@ public class JDialogAuthor extends javax.swing.JDialog {
     
     public JDialogAuthor(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(parent);
         this.editando = false;
         this.oldCpf = "";
         this.authorEditing = new Author();
@@ -35,8 +37,7 @@ public class JDialogAuthor extends javax.swing.JDialog {
         this.authorController = new AuthorController(authorDao);
        
         
-        initComponents();
-        setLocationRelativeTo(parent);
+        
         
    
         this.habilitarCampos(false);
@@ -142,6 +143,11 @@ public class JDialogAuthor extends javax.swing.JDialog {
         btnDelete.setBackground(new java.awt.Color(204, 204, 255));
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnDelete);
 
         btnSave.setBackground(new java.awt.Color(204, 204, 255));
@@ -335,6 +341,20 @@ public class JDialogAuthor extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        String CPFEscolhido = JOptionPane.showInputDialog("Enter the CPF you want to delete :", "");
+        this.authorEditing = (Author)this.authorController.find(CPFEscolhido);
+        if(authorEditing == null){
+            JOptionPane.showMessageDialog(this,"There is no author with this cpf.");
+            this.editando = false;
+        }else{
+            this.authorController.remove(CPFEscolhido);
+            JOptionPane.showMessageDialog(this,"Deletion done successfully!");
+        }
+        this.atualizarTabela();
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
     
     
     public void atualizarTabela() {

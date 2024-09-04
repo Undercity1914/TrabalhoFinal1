@@ -45,7 +45,7 @@ public class BookController
         return repository.findAll();
     }
     
-    public void update(String oldIsbn, String title, Author author, String publicationYear)
+    public void update(String oldIsbn, String title,String ISBN, Author author, String publicationYear)
     {
         this.remove(oldIsbn);
         this.add(title, author, oldIsbn, publicationYear);
