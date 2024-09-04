@@ -4,19 +4,70 @@
  */
 package trabalho.libraryproject.view;
 
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import trabalho.libraryproject.connection.SQLiteConnector;
+import trabalho.libraryproject.controller.BookController;
+import trabalho.libraryproject.model.DAO.BookDAOFile;
+import trabalho.libraryproject.model.DAO.IDao;
+import trabalho.libraryproject.model.entities.Book;
+import trabalho.libraryproject.model.file.BookJSONSerializer;
+import trabalho.libraryproject.view.TableModel.TMCadBook;
+
 /**
  *
  * @author Windows
  */
 public class JDialogBook extends javax.swing.JDialog {
+     private boolean editando;
+    private String oldISBN;
+    private BookController bookController;
+    private Book bookEditing;
 
-    /**
-     * Creates new form JDialogBook
-     */
-    public JDialogBook(java.awt.Frame parent, boolean modal) {
+    
+    public JDialogBook(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        
+         this.editando = false;
+        this.oldISBN = "";
+        this.bookEditing = new Book();
+        
+        //IDao BookJ = new BookJSONSerializer("ListagemAutores.json");
+        SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
+        //IDao bookDao = new BookDAOFile(conexao.getConnection()); 
+        this.bookController = new BookController(bookDao);
+        
+        this.habilitarCampos(false);
+        this.limparCampos();
+        
+        this.atualizarTabela();
+        
     }
+    public void habilitarCampos(boolean flag){
+       edtTitle.setEnabled(flag);
+        edtISBN.setEnabled(flag);
+        edtAuthor.setEnabled(flag);
+        edtPublicationYear.setEnabled(flag);
+        
+    }
+    
+    public void limparCampos(){
+        edtTitle.setText("");
+        edtISBN.setText("");
+        edtAuthor.setText("");
+        edtPublicationYear.setText("");
+    }
+    
+    public void objetoParaCampos(Book b){
+        edtTitle.setText(b.getTitle());
+        edtISBN.setText(b.getIsbn());
+        edtAuthor.setText(b.getAuthor().toString());
+        edtPublicationYear.setText(b.getPublicationYear());
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,26 +150,51 @@ public class JDialogBook extends javax.swing.JDialog {
         btnNew.setBackground(new java.awt.Color(204, 204, 255));
         btnNew.setForeground(new java.awt.Color(255, 255, 255));
         btnNew.setText("NEW");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnNew);
 
         btnCancel.setBackground(new java.awt.Color(204, 204, 255));
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("CANCEL");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnCancel);
 
         btnEdit.setBackground(new java.awt.Color(204, 204, 255));
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("EDIT");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnEdit);
 
         btnDelete.setBackground(new java.awt.Color(204, 204, 255));
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnDelete);
 
         btnSave.setBackground(new java.awt.Color(204, 204, 255));
         btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("SAVE");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnSave);
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 255));
@@ -246,47 +322,75 @@ public class JDialogBook extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtAuthorActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDialogBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDialogBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDialogBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDialogBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+       this.habilitarCampos(true);
+       this.limparCampos();
+       this.editando = false;
+    }//GEN-LAST:event_btnNewActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JDialogBook dialog = new JDialogBook(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        this.limparCampos();
+        this.habilitarCampos(false);
+        this.editando = false;
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+       String ISBNEscolhido = JOptionPane.showInputDialog("Enter the ISBN you want to EDIT:", "");
+
+        this.bookEditing = (Book) this.bookController.find(ISBNEscolhido);
+        
+        if(bookEditing == null){
+            JOptionPane.showMessageDialog(this,"There is no author with this ISBN.");
+            this.editando = false;
+        }else{
+            this.limparCampos();
+            this.habilitarCampos(true);
+            
+            this.objetoParaCampos(bookEditing);
+            this.editando = true;
+            this.oldISBN = bookEditing.getIsbn();
+            this.atualizarTabela();
+        }
+        
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        String ISBNEscolhido = JOptionPane.showInputDialog("Enter the ISBN you want to delete :", "");
+        this.bookEditing = (Book)this.bookController.find(ISBNEscolhido);
+        if(bookEditing == null){
+            JOptionPane.showMessageDialog(this,"There is no author with this ISBN.");
+            this.editando = false;
+        }else{
+            this.bookController.remove(ISBNEscolhido);
+            JOptionPane.showMessageDialog(this,"Deletion done successfully!");
+        }
+        this.atualizarTabela();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (this.editando == true){
+          this.bookController.update(oldISBN, edtTitle.getText(), edtISBN.getText(), edtAuthor.getText()., edtPublicationYear.getText());
+       }
+       else{
+          this.bookController.add(edtTitle.getText(),edtAuthor.getText(),edtISBN.getText(), edtPublicationYear.getText());
+       }
+       this.limparCampos();
+       this.habilitarCampos(false);
+       this.editando = false;
+       
+       this.atualizarTabela();
     }
+    
+     public void atualizarTabela() {
+        List<Book> lista = this.bookController.list();
+        TMCadBook tmcadBook = new TMCadBook(lista);
+        grdBook.setModel(tmcadBook);
+    
+    
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
