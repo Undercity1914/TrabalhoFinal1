@@ -295,8 +295,8 @@ public class JDialogSelectBook extends javax.swing.JDialog {
         
         Book bookExistente = bookController.update(ISBNEscolhido, edtTitle.getText(), edtISBN.getText(), edtAuthor.getText().formatted(args), edtPublicationYear.getText());
 
-        if (alunoExistente == null) {
-            JOptionPane.showMessageDialog(this, "Não existe aluno com esse cpf.");
+        if (bookExistente == null) {
+            JOptionPane.showMessageDialog(this, "Não existe este livro com esse isbn.");
         } else {
             this.habilitarCampos(true);
             this.objetoParaCampos(alunoExistente);
