@@ -9,8 +9,10 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import trabalho.libraryproject.connection.SQLiteConnector;
 import trabalho.libraryproject.controller.BookController;
+import trabalho.libraryproject.model.DAO.BookDAODataBase;
 import trabalho.libraryproject.model.DAO.BookDAOFile;
 import trabalho.libraryproject.model.DAO.IDao;
+import trabalho.libraryproject.model.entities.Author;
 import trabalho.libraryproject.model.entities.Book;
 import trabalho.libraryproject.model.file.BookJSONSerializer;
 import trabalho.libraryproject.view.TableModel.TMCadBook;
@@ -35,9 +37,9 @@ public class JDialogBook extends javax.swing.JDialog {
         this.oldISBN = "";
         this.bookEditing = new Book();
         
-        //IDao BookJ = new BookJSONSerializer("ListagemAutores.json");
-        SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
-        //IDao bookDao = new BookDAOFile(conexao.getConnection()); 
+        //IDao bookJ = new BookDAOFile("ListagemAutores.json");
+        SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
+        IDao bookDao = new BookDAODataBase(conexao.getConnection()); 
         this.bookController = new BookController(bookDao);
         
         this.habilitarCampos(false);
@@ -49,7 +51,7 @@ public class JDialogBook extends javax.swing.JDialog {
     public void habilitarCampos(boolean flag){
        edtTitle.setEnabled(flag);
         edtISBN.setEnabled(flag);
-        edtAuthor.setEnabled(flag);
+        
         edtPublicationYear.setEnabled(flag);
         
     }
@@ -57,14 +59,14 @@ public class JDialogBook extends javax.swing.JDialog {
     public void limparCampos(){
         edtTitle.setText("");
         edtISBN.setText("");
-        edtAuthor.setText("");
+        
         edtPublicationYear.setText("");
     }
     
     public void objetoParaCampos(Book b){
         edtTitle.setText(b.getTitle());
         edtISBN.setText(b.getIsbn());
-        edtAuthor.setText(b.getAuthor().toString());
+        
         edtPublicationYear.setText(b.getPublicationYear());
     }
 
@@ -96,11 +98,11 @@ public class JDialogBook extends javax.swing.JDialog {
         lblTitle = new javax.swing.JLabel();
         edtTitle = new javax.swing.JTextField();
         lblAuthor = new javax.swing.JLabel();
-        edtAuthor = new javax.swing.JTextField();
         lblISBN = new javax.swing.JLabel();
         edtISBN = new javax.swing.JTextField();
         lblPublicationYear = new javax.swing.JLabel();
         edtPublicationYear = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         grdBook = new javax.swing.JTable();
 
@@ -205,14 +207,7 @@ public class JDialogBook extends javax.swing.JDialog {
         edtTitle.setForeground(new java.awt.Color(0, 0, 0));
 
         lblAuthor.setForeground(new java.awt.Color(0, 0, 0));
-        lblAuthor.setText("Author's CPF : ");
-
-        edtAuthor.setForeground(new java.awt.Color(0, 0, 0));
-        edtAuthor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtAuthorActionPerformed(evt);
-            }
-        });
+        lblAuthor.setText("Author  : ");
 
         lblISBN.setForeground(new java.awt.Color(0, 0, 0));
         lblISBN.setText("ISBN : ");
@@ -223,6 +218,15 @@ public class JDialogBook extends javax.swing.JDialog {
         edtPublicationYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtPublicationYearActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Select");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -240,16 +244,17 @@ public class JDialogBook extends javax.swing.JDialog {
                     .addComponent(edtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                     .addComponent(edtISBN))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblAuthor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lblPublicationYear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtPublicationYear)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(edtPublicationYear, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +264,7 @@ public class JDialogBook extends javax.swing.JDialog {
                     .addComponent(lblTitle)
                     .addComponent(edtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAuthor)
-                    .addComponent(edtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblISBN)
@@ -318,10 +323,6 @@ public class JDialogBook extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtPublicationYearActionPerformed
 
-    private void edtAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtAuthorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtAuthorActionPerformed
-
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
        this.habilitarCampos(true);
        this.limparCampos();
@@ -369,10 +370,10 @@ public class JDialogBook extends javax.swing.JDialog {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (this.editando == true){
-          this.bookController.update(oldISBN, edtTitle.getText(), edtISBN.getText(), edtAuthor.getText()., edtPublicationYear.getText());
+         // this.bookController.update(oldISBN, edtTitle.getText(), edtISBN.getText(), edtPublicationYear.getText());
        }
        else{
-          this.bookController.add(edtTitle.getText(),edtAuthor.getText(),edtISBN.getText(), edtPublicationYear.getText());
+         // this.bookController.add(edtTitle.getText(),edtISBN.getText(), edtPublicationYear.getText());
        }
        this.limparCampos();
        this.habilitarCampos(false);
@@ -389,6 +390,11 @@ public class JDialogBook extends javax.swing.JDialog {
     
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     //  JDialogSelectAuthor tela = new JDialogSelectAuthor(this, true, Author author);
+      // tela.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     
 
@@ -398,11 +404,11 @@ public class JDialogBook extends javax.swing.JDialog {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnNew;
     private javax.swing.JButton btnSave;
-    private javax.swing.JTextField edtAuthor;
     private javax.swing.JTextField edtISBN;
     private javax.swing.JTextField edtPublicationYear;
     private javax.swing.JTextField edtTitle;
     private javax.swing.JTable grdBook;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

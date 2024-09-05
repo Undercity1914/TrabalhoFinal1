@@ -15,7 +15,7 @@ import trabalho.libraryproject.view.TableModel.TMCadUser;
  *
  * @author Windows
  */
-public class JDialogUser extends javax.swing.JDialog {s
+public class JDialogUser extends javax.swing.JDialog {
 
     private boolean editando;
     private String oldCpf;
@@ -31,9 +31,9 @@ public class JDialogUser extends javax.swing.JDialog {s
         this.userEditing = new User();
         
         //IDao BookJ = new BookJSONSerializer("ListagemAutores.json");
-        SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
+        //SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
         //IDao userDao = new UserDAOFile(conexao.getConnection()); 
-        this.userController = new UserController(userDao);
+        //this.userController = new UserController(userDao);
         
         this.habilitarCampos(false);
         this.limparCampos();
@@ -45,7 +45,7 @@ public class JDialogUser extends javax.swing.JDialog {s
        edtName.setEnabled(flag);
         edtCPF.setEnabled(flag);
         edtAge.setEnabled(flag);
-        edtISBN.setEnabled(flag);
+       
         
     }
     
@@ -53,14 +53,14 @@ public class JDialogUser extends javax.swing.JDialog {s
         edtName.setText("");
         edtCPF.setText("");
         edtAge.setText("");
-        edtISBN.setText("");
+        
     }
     
     public void objetoParaCampos(User u){
         edtName.setText(u.getName());
         edtCPF.setText(u.getCpf());
         edtAge.setText(u.getAge());
-        edtISBN.setText(u.getBooks().toString());
+        
     }
 
 
@@ -86,7 +86,7 @@ public class JDialogUser extends javax.swing.JDialog {s
         edtAge = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lblISBN = new javax.swing.JLabel();
-        edtISBN = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         grdUser = new javax.swing.JTable();
 
@@ -173,9 +173,16 @@ public class JDialogUser extends javax.swing.JDialog {s
         jPanel4.setForeground(new java.awt.Color(204, 204, 255));
 
         lblISBN.setForeground(new java.awt.Color(0, 0, 0));
-        lblISBN.setText("ISBN : ");
+        lblISBN.setText("Book : ");
 
-        edtISBN.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Select");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -185,8 +192,8 @@ public class JDialogUser extends javax.swing.JDialog {s
                 .addContainerGap()
                 .addComponent(lblISBN)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,8 +201,8 @@ public class JDialogUser extends javax.swing.JDialog {s
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblISBN)
-                    .addComponent(edtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -352,6 +359,11 @@ public class JDialogUser extends javax.swing.JDialog {s
                                       
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JDialogSelectBook tela = new JDialogSelectBook(this, true);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     
 
@@ -363,9 +375,9 @@ public class JDialogUser extends javax.swing.JDialog {s
     private javax.swing.JButton btnSave;
     private javax.swing.JTextField edtAge;
     private javax.swing.JTextField edtCPF;
-    private javax.swing.JTextField edtISBN;
     private javax.swing.JTextField edtName;
     private javax.swing.JTable grdUser;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

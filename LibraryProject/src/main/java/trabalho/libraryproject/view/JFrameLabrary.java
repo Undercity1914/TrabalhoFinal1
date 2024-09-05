@@ -4,6 +4,10 @@
  */
 package trabalho.libraryproject.view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Windows
@@ -120,12 +124,22 @@ public class JFrameLabrary extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBooksActionPerformed
-        JDialogBook tela = new JDialogBook(this, true);
-        tela.setVisible(true);
+        JDialogBook tela1 = null;
+        try {
+            tela1 = new JDialogBook(this, true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFrameLabrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tela1.setVisible(true);
     }//GEN-LAST:event_btnBooksActionPerformed
 
     private void btnAuthorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthorsActionPerformed
-       JDialogAuthor tela = new JDialogAuthor(this, true);
+       JDialogAuthor tela = null;
+        try {
+            tela = new JDialogAuthor(this, true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFrameLabrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
        tela.setVisible(true);
     }//GEN-LAST:event_btnAuthorsActionPerformed
 

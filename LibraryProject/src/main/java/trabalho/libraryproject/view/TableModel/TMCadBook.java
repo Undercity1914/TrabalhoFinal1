@@ -38,7 +38,7 @@ public class TMCadBook extends AbstractTableModel {
        
     }
     
-    public Book getObjetoAuthor(int row){
+    public Book getObjetoBook(int row){
         return this.books.get(row);
     }
 

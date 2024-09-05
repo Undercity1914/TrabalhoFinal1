@@ -1,3 +1,5 @@
+package trabalho.libraryproject.view;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
@@ -32,9 +34,9 @@ public class JDialogAuthor extends javax.swing.JDialog {
         this.authorEditing = new Author();
         
         //IDao authorJ = new AuthorJSONSerializer("ListagemAutores.json");
-        SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
+        //SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
         //IDao authorDao = new AuthorDAOFile(conexao.getConnection()); 
-        this.authorController = new AuthorController(authorDao);
+        //this.authorController = new AuthorController(authorDao);
        
         
         
@@ -287,8 +289,8 @@ public class JDialogAuthor extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                .addGap(16, 16, 16))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
