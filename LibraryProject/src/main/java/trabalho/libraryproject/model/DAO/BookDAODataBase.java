@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import trabalho.libraryproject.model.entities.Author;
 import trabalho.libraryproject.model.entities.Book;
@@ -104,7 +105,7 @@ public class BookDAODataBase implements IDao
         {
             System.out.println("""
                                ERROR! 
-                               Can't find Author.
+                               Can't find Books.
                                """ + e.getMessage());
         }
         
@@ -113,9 +114,36 @@ public class BookDAODataBase implements IDao
 
     @Override
     public List findAll() {
+        String sql = "SELECT * FROM book";
+            List<Book> books = new ArrayList<>();
         
+        try(PreparedStatement stmt = connection.prepareStatement(sql)){
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next())
+            {
+                String id = rs.getString("authorId");
+                    
+                AuthorDAODataBase db = new AuthorDAODataBase(connection);
+
+                Author author = (Author) db.find(id);
+                
+                books.add(new Book(rs.getString("title"),
+                            author,
+                            rs.getString("isbn"),
+                            rs.getString("publicationYear")
+                            
+                ));
+            }
+        }catch(SQLException e)
+        {
+            System.out.println("""
+                               ERROR! 
+                               Can't find Books.
+                               """ + e.getMessage());
+        }
         
-        return null;
+        return books;
     }
     
 }
