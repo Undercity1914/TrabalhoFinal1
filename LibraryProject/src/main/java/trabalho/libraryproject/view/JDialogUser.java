@@ -4,6 +4,7 @@
  */
 package trabalho.libraryproject.view;
 
+import java.awt.print.Book;
 import java.util.List;
 import javax.swing.JOptionPane;
 import trabalho.libraryproject.connection.SQLiteConnector;
@@ -17,6 +18,7 @@ import trabalho.libraryproject.view.TableModel.TMCadUser;
  */
 public class JDialogUser extends javax.swing.JDialog {
 
+    private Book book;
     private boolean editando;
     private String oldCpf;
     private UserController userController;
@@ -39,6 +41,8 @@ public class JDialogUser extends javax.swing.JDialog {
         this.limparCampos();
         
         this.atualizarTabela();
+        
+        this.book = new Book();
         
     }
     public void habilitarCampos(boolean flag){
@@ -359,6 +363,11 @@ public class JDialogUser extends javax.swing.JDialog {
                                       
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+     public void setBook(Book book)
+     {
+         this.book = book;
+     }
+     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JDialogSelectBook tela = new JDialogSelectBook(this, true);
         tela.setVisible(true);

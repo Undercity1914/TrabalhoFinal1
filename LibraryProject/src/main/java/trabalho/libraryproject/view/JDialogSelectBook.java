@@ -176,7 +176,9 @@ public class JDialogSelectBook extends javax.swing.JDialog {
 
     private void grdBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdBookMouseClicked
          Book b = this.getObjetoSelecionadoNaGrid();
-       
+         JDialogUser user = new JDialogUser(this, true);
+         
+         
     }//GEN-LAST:event_grdBookMouseClicked
 
     public Book getObjetoSelecionadoNaGrid() {
