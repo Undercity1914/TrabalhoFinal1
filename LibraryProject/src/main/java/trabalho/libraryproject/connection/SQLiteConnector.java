@@ -72,6 +72,7 @@ public class SQLiteConnector
                 + "title TEXT NOT NULL,"
                 + "authorId INTEGER,"
                 + "isbn TEXT NOT NULL,"
+                + "publicationYear TEXT NOT NULL,"
                 + "FOREIGN KEY (authorId) REFERENCES author(ID)"
                 + ");";
         try(Statement stmt = this.connection.createStatement()){
