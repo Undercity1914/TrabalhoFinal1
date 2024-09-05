@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Windows\Documents\TrabalhoFinal\LibraryProject\src\main\java\trabalho\libraryproject\controller\AuthorController.java
 C:\Users\Windows\Documents\TrabalhoFinal\LibraryProject\src\main\java\trabalho\libraryproject\model\exceptions\UserException.java
 C:\Users\Windows\Documents\TrabalhoFinal\LibraryProject\src\main\java\trabalho\libraryproject\model\DAO\BookDAOFile.java
@@ -33,3 +34,35 @@ C:\Users\Windows\Documents\TrabalhoFinal\LibraryProject\src\main\java\trabalho\l
 C:\Users\Windows\Documents\TrabalhoFinal\LibraryProject\src\main\java\trabalho\libraryproject\view\TableModel\TMCadAuthor.java
 C:\Users\Windows\Documents\TrabalhoFinal\LibraryProject\src\main\java\trabalho\libraryproject\model\DAO\UserDAOFile.java
 C:\Users\Windows\Documents\TrabalhoFinal\LibraryProject\src\main\java\trabalho\libraryproject\view\JDialogBook.java
+=======
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\entities\Author.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\view\JDialogAuthor.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\ValidationData\BookValidation.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\DAO\AuthorDAOFile.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\connection\SQLiteConnector.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\view\TableModel\TMCadUser.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\entities\Book.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\file\UserJSONSelializer.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\view\JDialogUser.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\file\AuthorJSONSerializer.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\controller\UserController.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\controller\AuthorController.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\LibraryProject.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\view\TableModel\TMCadBook.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\controller\BookController.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\file\BookJSONSerializer.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\DAO\IDao.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\exceptions\AuthorException.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\entities\User.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\view\JDialogBook.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\DAO\BookDAOFile.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\entities\Person.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\view\JFrameLabrary.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\ValidationData\UserValidation.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\ValidationData\AuthorValidation.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\exceptions\UserException.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\view\TableModel\TMCadAuthor.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\exceptions\BookException.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\DAO\UserDAOFile.java
+C:\Users\marco\OneDrive\Documentos\TrabalhoFinal1\LibraryProject\src\main\java\trabalho\libraryproject\model\file\FilePersistence.java
+>>>>>>> 27351f04298b7be041eb5b0d7f81e75f633d74a9

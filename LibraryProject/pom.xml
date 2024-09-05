@@ -28,8 +28,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
+<<<<<<< HEAD
             <version>2.18.0-rc1</version>
             <type>jar</type>
+=======
+            <version>2.12.3</version>
+>>>>>>> 27351f04298b7be041eb5b0d7f81e75f633d74a9
         </dependency>
 
         <dependency>
