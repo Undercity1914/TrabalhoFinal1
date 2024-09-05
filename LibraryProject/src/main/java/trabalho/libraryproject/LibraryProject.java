@@ -4,8 +4,6 @@
 
 package trabalho.libraryproject;
 
-import trabalho.libraryproject.view.JFrameLabrary;
-
 /**
  *
  * @author marco
@@ -13,7 +11,6 @@ import trabalho.libraryproject.view.JFrameLabrary;
 public class LibraryProject {
 
     public static void main(String[] args) {
-        JFrameLabrary screen = new JFrameLabrary();
-        screen.setVisible(true);
+        System.out.println("Hello World!");
     }
 }

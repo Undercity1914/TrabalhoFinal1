@@ -124,7 +124,12 @@ public class JFrameLabrary extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBooksActionPerformed
-        JDialogBook tela = new JDialogBook(this, true);
+        JDialogBook tela = null;
+        try {
+            tela = new JDialogBook(this, true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFrameLabrary.class.getName()).log(Level.SEVERE, null, ex);
+        }
         tela.setVisible(true);
     }//GEN-LAST:event_btnBooksActionPerformed
 

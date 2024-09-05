@@ -15,7 +15,7 @@ import trabalho.libraryproject.view.TableModel.TMCadUser;
  *
  * @author Windows
  */
-public class JDialogUser extends javax.swing.JDialog {s
+public class JDialogUser extends javax.swing.JDialog {
 
     private boolean editando;
     private String oldCpf;

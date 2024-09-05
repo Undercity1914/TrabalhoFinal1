@@ -85,7 +85,14 @@ public class SQLiteConnector
         }
     }
 
-    public String getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Connection getConnection() {
+        return connection;
     }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+    
+    
+    
 }

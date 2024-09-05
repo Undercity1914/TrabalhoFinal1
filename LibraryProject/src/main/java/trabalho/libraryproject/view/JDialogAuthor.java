@@ -34,8 +34,8 @@ public class JDialogAuthor extends javax.swing.JDialog {
         this.authorEditing = new Author();
         
         //IDao authorJ = new AuthorJSONSerializer("ListagemAutores.json");
-        SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
-        IDao authorDao = new AuthorDAOFile(conexao.getConnection()); 
+        SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
+        //IDao authorDao = new AuthorDAOFile(conexao.getConnection()); 
         this.authorController = new AuthorController(authorDao);
        
         
