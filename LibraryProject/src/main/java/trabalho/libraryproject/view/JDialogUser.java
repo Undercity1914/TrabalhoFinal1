@@ -40,6 +40,33 @@ public class JDialogUser extends javax.swing.JDialog {
         
         this.atualizarTabela();
         
+    
+    
+    public JDialogUser (java.awt.Dialog parent, boolean modal,  Disciplina d){
+
+    private boolean editando;
+    private String oldCpf;
+    private UserController userController;
+    private User userEditing;
+    public JDialogUser(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(parent);
+        
+         this.editando = false;
+        this.oldCpf = "";
+        this.userEditing = new User();
+        
+        //IDao BookJ = new BookJSONSerializer("ListagemAutores.json");
+        //SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
+        //IDao userDao = new UserDAOFile(conexao.getConnection()); 
+        //this.userController = new UserController(userDao);
+        
+        this.habilitarCampos(false);
+        this.limparCampos();
+        
+        this.atualizarTabela();
+        
     }
     public void habilitarCampos(boolean flag){
        edtName.setEnabled(flag);

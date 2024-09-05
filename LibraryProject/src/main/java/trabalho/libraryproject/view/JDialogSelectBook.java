@@ -11,8 +11,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import trabalho.libraryproject.connection.SQLiteConnector;
 import trabalho.libraryproject.controller.BookController;
 import trabalho.libraryproject.controller.UserController;
+import trabalho.libraryproject.model.DAO.BookDAODataBase;
+import trabalho.libraryproject.model.DAO.BookDAOFile;
+import trabalho.libraryproject.model.DAO.IDao;
+import trabalho.libraryproject.model.DAO.UserDAODataBase;
+import trabalho.libraryproject.model.DAO.UserDAOFile;
 import trabalho.libraryproject.model.entities.Book;
 import trabalho.libraryproject.model.entities.User;
 import trabalho.libraryproject.view.TableModel.TMCadBook;
@@ -32,43 +38,48 @@ public class JDialogSelectBook extends javax.swing.JDialog {
 
     
     
-    public JDialogSelectBook(java.awt.Frame parent, boolean modal,  Disciplina d) throws SQLException {
+    public JDialogSelectBook(java.awt.Frame parent, boolean modal,  User u) throws SQLException {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
         
-        //IDao disciplinaDao = new DisciplinaDAOFile("ListagemDisciplinas.json");
+        IDao userJ = new UserDAOFile("ListagemDisciplinas.json");
         
         SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
-        IDao disciplinaDao = new DisciplinaDAOBanco(conexao.getConnection());
-        this.disciplinaController = new DisciplinaController(disciplinaDao);
+        IDao userDao = new UserDAODataBase(conexao.getConnection());
+        this.userController = new UserController(userDao);
         
         
-        //IDao alunoDao =new AlunoDAOFile("ListagemAlunos.json");
+        IDao bookJ =new BookDAOFile("ListagemAlunos.json");
         
         SQLiteConnector conexao2 = new SQLiteConnector("banco.sqlite");
-        IDao alunoDao = new AlunoDAOBanco(conexao2.getConnection());
-        this.alunoController = new AlunoController(alunoDao);
+        IDao bookDao = new BookDAODataBase(conexao2.getConnection());
+        this.bookController = new BookController(bookDao);
         initData();
-        this.dis = d;
+        this.user = u ;
     }
     
-    public JDialogSelectBook(java.awt.Dialog parent, boolean modal,  Disciplina d) throws SQLException {
+    public JDialogSelectBook(java.awt.Dialog parent, boolean modal,  User u ) throws SQLException {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
         
-        //IDao disciplinaDao = new DisciplinaDAOFile("ListagemDisciplinas.json");
-        SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
-        IDao disciplinaDao = new DisciplinaDAOBanco(conexao.getConnection());
-        this.disciplinaController = new DisciplinaController(disciplinaDao);
+         //IDao userJ = new UserDAOFile("ListagemDisciplinas.json");
         
-        //IDao alunoDao =new AlunoDAOFile("ListagemAlunos.json");
+        SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
+        IDao userDao = new UserDAODataBase(conexao.getConnection());
+        this.userController = new UserController(userDao);
+        
+        
+        //IDao bookJ =new BookDAOFile("ListagemAlunos.json");
+        
         SQLiteConnector conexao2 = new SQLiteConnector("banco.sqlite");
-        IDao alunoDao = new AlunoDAOBanco(conexao2.getConnection());
-        this.alunoController = new AlunoController(alunoDao);
+        IDao bookDao = new BookDAODataBase(conexao2.getConnection());
+        this.bookController = new BookController(bookDao);
         initData();
-        this.dis = d;
+        this.user = u;
+        
+        
     }
     
     private void initData(){
@@ -82,27 +93,25 @@ public class JDialogSelectBook extends javax.swing.JDialog {
     }
     
     public void habilitarCampos(boolean flag) {
-        edtCPF.setEnabled(flag);
-        edtMatricula.setEnabled(flag);
-        edtNome.setEnabled(flag);
-        edtIdade.setEnabled(flag);
-        edtAnoIngresso.setEnabled(flag);
+        edtTitle.setEnabled(flag);
+       edtISBN.setEnabled(flag);
+       edtAuthor.setEnabled(flag);
+       edtPublicationYear.setEnabled(flag);
     }
 
     public void limparCampos() {
-        edtCPF.setText("");
-        edtMatricula.setText("");
-        edtNome.setText("");
-        edtIdade.setText("");
-        edtAnoIngresso.setText("");
+       edtTitle.setText("");
+       edtISBN.setText("");
+       edtAuthor.setText("");
+       edtPublicationYear.setText("");
     }
 
-    public void objetoParaCampos(Aluno p) {
-       edtCPF.setText(p.getCpf());
-       edtMatricula.setText(p.getMatricula());
-       edtNome.setText(p.getNome());
-       edtIdade.setText(p.getIdade() + "");
-       edtAnoIngresso.setText(p.getAnoIngresso()+ "");
+    public void objetoParaCampos(Book b) {
+       edtTitle.setText(b.getTitle());
+       edtISBN.setText(b.getIsbn());
+       edtAuthor.setText(b.getAuthor().getCpf());
+       edtPublicationYear.setText(b.getPublicationYear() + "");
+       
     }
 
     /**
@@ -115,20 +124,31 @@ public class JDialogSelectBook extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblAluno = new javax.swing.JLabel();
+        lblSelectBook = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         grdBook = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        btnSelecBook = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
+        edtTitle = new javax.swing.JTextField();
+        lblAuthor = new javax.swing.JLabel();
+        edtAuthor = new javax.swing.JTextField();
+        lblISBN = new javax.swing.JLabel();
+        edtISBN = new javax.swing.JTextField();
+        lblPublicationYear = new javax.swing.JLabel();
+        edtPublicationYear = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblAluno.setBackground(new java.awt.Color(102, 204, 255));
-        lblAluno.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lblAluno.setForeground(new java.awt.Color(255, 255, 255));
-        lblAluno.setText("Select Book ");
-        jPanel1.add(lblAluno);
+        lblSelectBook.setBackground(new java.awt.Color(102, 204, 255));
+        lblSelectBook.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblSelectBook.setForeground(new java.awt.Color(255, 255, 255));
+        lblSelectBook.setText("Select Book ");
+        jPanel1.add(lblSelectBook);
 
         grdBook.setBackground(new java.awt.Color(255, 255, 255));
         grdBook.setForeground(new java.awt.Color(0, 0, 0));
@@ -150,15 +170,100 @@ public class JDialogSelectBook extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(grdBook);
 
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+
+        btnSelecBook.setBackground(new java.awt.Color(0, 204, 255));
+        btnSelecBook.setForeground(new java.awt.Color(255, 255, 255));
+        btnSelecBook.setText("Select");
+        btnSelecBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecBookActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnSelecBook);
+
+        jPanel3.setBackground(new java.awt.Color(153, 255, 255));
+
+        lblTitle.setBackground(new java.awt.Color(0, 0, 0));
+        lblTitle.setForeground(new java.awt.Color(0, 0, 0));
+        lblTitle.setText("Title :");
+
+        edtTitle.setBackground(new java.awt.Color(255, 255, 255));
+        edtTitle.setForeground(new java.awt.Color(0, 0, 0));
+
+        lblAuthor.setForeground(new java.awt.Color(0, 0, 0));
+        lblAuthor.setText("Author :");
+
+        edtAuthor.setBackground(new java.awt.Color(255, 255, 255));
+        edtAuthor.setForeground(new java.awt.Color(0, 0, 0));
+
+        lblISBN.setForeground(new java.awt.Color(0, 0, 0));
+        lblISBN.setText("ISBN :");
+
+        edtISBN.setBackground(new java.awt.Color(255, 255, 255));
+        edtISBN.setForeground(new java.awt.Color(0, 0, 0));
+
+        lblPublicationYear.setBackground(new java.awt.Color(255, 255, 255));
+        lblPublicationYear.setForeground(new java.awt.Color(0, 0, 0));
+        lblPublicationYear.setText("Publication Year :");
+
+        edtPublicationYear.setBackground(new java.awt.Color(255, 255, 255));
+        edtPublicationYear.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblISBN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtISBN))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(lblTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(77, 77, 77)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblAuthor)
+                    .addComponent(lblPublicationYear))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(edtPublicationYear))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitle)
+                    .addComponent(edtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAuthor)
+                    .addComponent(edtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblISBN)
+                    .addComponent(edtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPublicationYear)
+                    .addComponent(edtPublicationYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -166,9 +271,12 @@ public class JDialogSelectBook extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
         );
 
         pack();
@@ -176,8 +284,27 @@ public class JDialogSelectBook extends javax.swing.JDialog {
 
     private void grdBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdBookMouseClicked
          Book b = this.getObjetoSelecionadoNaGrid();
+         this.objetoParaCampos(b);
        
     }//GEN-LAST:event_grdBookMouseClicked
+
+    private void btnSelecBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecBookActionPerformed
+       this.bookEscolhido = this.getObjetoSelecionadoNaGrid();
+       
+        String ISBNEscolhido = bookEscolhido.getIsbn();
+        
+        Book bookExistente = bookController.update(ISBNEscolhido, edtTitle.getText(), edtISBN.getText(), edtAuthor.getText().formatted(args), edtPublicationYear.getText());
+
+        if (alunoExistente == null) {
+            JOptionPane.showMessageDialog(this, "Não existe aluno com esse cpf.");
+        } else {
+            this.habilitarCampos(true);
+            this.objetoParaCampos(alunoExistente);
+            this.editando = true;
+            this.cpfEscolhido = alunoExistente.getCpf();
+        }
+
+    }//GEN-LAST:event_btnSelecBookActionPerformed
 
     public Book getObjetoSelecionadoNaGrid() {
         int linhaSelecionada = grdBook.getSelectedRow();
@@ -195,9 +322,20 @@ public class JDialogSelectBook extends javax.swing.JDialog {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSelecBook;
+    private javax.swing.JTextField edtAuthor;
+    private javax.swing.JTextField edtISBN;
+    private javax.swing.JTextField edtPublicationYear;
+    private javax.swing.JTextField edtTitle;
     private javax.swing.JTable grdBook;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblAluno;
+    private javax.swing.JLabel lblAuthor;
+    private javax.swing.JLabel lblISBN;
+    private javax.swing.JLabel lblPublicationYear;
+    private javax.swing.JLabel lblSelectBook;
+    private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 }
