@@ -123,7 +123,7 @@ public class AuthorDAODataBase implements IDao
             while(rs.next())
             {
                 authors.add(new Author(
-                        serializer.fromFile(rs.getString("books")),
+                            serializer.fromFile(rs.getString("books")),
                             rs.getString("name"),
                             rs.getString("age"),
                             rs.getString("cpf")
