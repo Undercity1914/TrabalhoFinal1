@@ -4,6 +4,7 @@
  */
 package trabalho.libraryproject.model.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import trabalho.libraryproject.model.entities.User;
 import trabalho.libraryproject.model.file.FilePersistence;
@@ -11,23 +12,25 @@ import trabalho.libraryproject.model.file.UserJSONSelializer;
 
 /**
  *
- * @author marco
+ * @user marco
  */
 public class UserDAOFile implements IDao
 {
-    private UserJSONSelializer serializer = new UserJSONSelializer();
+    private UserJSONSelializer serializer = new UserJSONSelializer("ListagemUsusarios.json");
     private FilePersistence filePersistence = new FilePersistence();
     private String patchFile;
+    private List<User> users;
 
     public UserDAOFile(String patchFile) {
         this.patchFile = patchFile;
+        this.users = new ArrayList<>();
     }
 
     @Override
     public void save(Object objO) {
-        User author = (User) objO;
+        User user = (User) objO;
         List<User> users = this.findAll();
-        users.add(author);
+        users.add(user);
         
         String jsonData = serializer.toFile(users);
         filePersistence.saveToFile(jsonData, this.patchFile);
@@ -35,19 +38,18 @@ public class UserDAOFile implements IDao
 
     @Override
     public void update(String codObjO, Object objO) {
-        throw new UnsupportedOperationException("""
-                                                ERROR! 
-                                                Unauthorized Access.""");
+       throw new UnsupportedOperationException("ERROR! \nUnuserized Access.");
+
     }
 
     @Override
     public void remove(String codObjO) {
-        User author = (User) this.find(codObjO);
+        User user = (User) this.find(codObjO);
         
-        if(author != null)
+        if(user != null)
         {
             List<User> users = this.findAll();
-            users.remove(author);
+            users.remove(user);
             
             String jsonData = serializer.toFile(users);
             filePersistence.saveToFile(jsonData, this.patchFile);
@@ -58,9 +60,9 @@ public class UserDAOFile implements IDao
     public Object find(String codObjO) {
         List<User> users = this.findAll();
         
-        for(User author : users)
-            if(author.getCpf().equals(codObjO))
-                return author;
+        for(User user : users)
+            if(user.getCpf().equals(codObjO))
+                return user;
         
         return null;
     }

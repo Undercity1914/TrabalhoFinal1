@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>Trabalho</groupId>
     <artifactId>LibraryProject</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>20</maven.compiler.source>
-        <maven.compiler.target>20</maven.compiler.target>
-        <exec.mainClass>trabalho.libraryproject.LibraryProject</exec.mainClass>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
-     <dependencies>
+
+    <dependencies>
+        <!-- JAXB API -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -24,30 +29,42 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.1</version>
         </dependency>
-        
+
+        <!-- Jackson Core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-<<<<<<< HEAD
-            <version>2.18.0-rc1</version>
-            <type>jar</type>
-=======
             <version>2.12.3</version>
->>>>>>> 27351f04298b7be041eb5b0d7f81e75f633d74a9
         </dependency>
 
+        <!-- Jackson Databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.12.3</version>
         </dependency>
-        
-        <dependency> <!-- Dependencias para usar o banco de dados SQLite  -->
+
+        <!-- SQLite JDBC -->
+        <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.36.0.3</version>
         </dependency>
-    </dependencies> 
-   
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin to run the main class -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>trabalho.libraryproject.LibraryProject</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <name>LibraryProject</name>
 </project>

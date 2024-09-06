@@ -17,7 +17,7 @@ public class BookJSONSerializer
 {
     public String toFile(List<Book> books) {
         try {
-            // Convertendo objeto filme para JSON 
+             
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(books);
 
@@ -28,13 +28,13 @@ public class BookJSONSerializer
         return null;
     }
 
-    // Desserializa JSON em formato String para um objeto Filme
+    
     public List<Book> fromFile(String jsonString) {
         try {
             ObjectMapper mapper = new ObjectMapper();
              
             List<Book> books = mapper.readValue(jsonString, new TypeReference<List<Book>>() {});
-           // GerenciadorProduto produtos = mapper.readValue(jsonString, GerenciadorProduto.class);
+           
             
             return books;
         } catch (Exception e) {

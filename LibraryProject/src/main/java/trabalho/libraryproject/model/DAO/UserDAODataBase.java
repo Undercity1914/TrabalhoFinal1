@@ -37,12 +37,10 @@ public class UserDAODataBase implements IDao
             stmt.setString(3, user.getAge());
             stmt.setString(4, serializer.toFile(user.getBooks()));
             stmt.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("""
-                               ERROR! 
-                               Can't save User.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't save User.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -59,13 +57,10 @@ public class UserDAODataBase implements IDao
             stmt.setString(4, serializer.toFile(user.getBooks()));
             stmt.executeUpdate();
             
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't update User.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't update User.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -73,13 +68,10 @@ public class UserDAODataBase implements IDao
         String sql = "DELETE FROM user WHERE cpf = ?";
         try(PreparedStatement stmt = connection.prepareStatement(sql)){
             stmt.setString(1, codObjO);
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't remove User.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't remove User.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -100,13 +92,10 @@ public class UserDAODataBase implements IDao
                     );
                 }
             }
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't find User.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't find User.\n" + e.getMessage());
+}
+
         
         return null;
     }
@@ -129,13 +118,10 @@ public class UserDAODataBase implements IDao
                             rs.getString("cpf")
                 ));
             }
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't find Users.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't find User.\n" + e.getMessage());
+}
+
         
         return users;
     }

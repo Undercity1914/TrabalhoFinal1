@@ -35,13 +35,10 @@ public class BookDAODataBase implements IDao
             stmt.setString(2, book.getAuthor().getCpf());
             stmt.setString(3, book.getIsbn());
             stmt.executeUpdate();
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR!
-                               Can't save the book.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't save the book.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -54,13 +51,10 @@ public class BookDAODataBase implements IDao
             stmt.setString(2, book.getAuthor().getCpf());
             stmt.setString(3, codObjO);
             stmt.executeUpdate();
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR!
-                               Can't update the Book.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't update the book.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -68,13 +62,10 @@ public class BookDAODataBase implements IDao
         String sql = "DELETE FROM book WHERE isbn = ?";
         try(PreparedStatement stmt = connection.prepareStatement(sql)){
             stmt.setString(1, codObjO);
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't remove Book.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't remove the book.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -101,13 +92,10 @@ public class BookDAODataBase implements IDao
                     return book;
                 }
             }
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't find Books.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't find the book.\n" + e.getMessage());
+}
+
         
         return null;
     }
@@ -135,13 +123,10 @@ public class BookDAODataBase implements IDao
                             
                 ));
             }
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't find Books.
-                               """ + e.getMessage());
-        }
+        }catch (SQLException e) {
+    System.out.println("ERROR!\nCan't find the book.\n" + e.getMessage());
+}
+
         
         return books;
     }

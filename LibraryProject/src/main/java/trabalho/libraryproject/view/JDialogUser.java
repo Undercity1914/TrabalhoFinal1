@@ -4,13 +4,18 @@
  */
 package trabalho.libraryproject.view;
 
-import java.awt.print.Book;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import trabalho.libraryproject.connection.SQLiteConnector;
 import trabalho.libraryproject.controller.UserController;
+import trabalho.libraryproject.model.DAO.IDao;
+import trabalho.libraryproject.model.DAO.UserDAODataBase;
+import trabalho.libraryproject.model.DAO.UserDAOFile;
 import trabalho.libraryproject.model.entities.User;
+import trabalho.libraryproject.model.file.BookJSONSerializer;
 import trabalho.libraryproject.view.TableModel.TMCadUser;
+import trabalho.libraryproject.model.file.UserJSONSelializer;
 
 /**
  *
@@ -18,12 +23,11 @@ import trabalho.libraryproject.view.TableModel.TMCadUser;
  */
 public class JDialogUser extends javax.swing.JDialog {
 
-    private Book book;
     private boolean editando;
     private String oldCpf;
     private UserController userController;
     private User userEditing;
-    public JDialogUser(java.awt.Frame parent, boolean modal) {
+    public JDialogUser(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
@@ -32,19 +36,19 @@ public class JDialogUser extends javax.swing.JDialog {
         this.oldCpf = "";
         this.userEditing = new User();
         
-        //IDao BookJ = new BookJSONSerializer("ListagemAutores.json");
+        IDao userJ = new UserDAOFile("ListagemUsusarios.json");
         //SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
-        //IDao userDao = new UserDAOFile(conexao.getConnection()); 
-        //this.userController = new UserController(userDao);
+        //IDao userDao = new UserDAODataBase(conexao.getConnection()); 
+        this.userController = new UserController(userJ);
         
         this.habilitarCampos(false);
         this.limparCampos();
         
         this.atualizarTabela();
         
-        this.book = new Book();
-        
     }
+    
+   
     public void habilitarCampos(boolean flag){
        edtName.setEnabled(flag);
         edtCPF.setEnabled(flag);
@@ -344,7 +348,7 @@ public class JDialogUser extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-       String NameEscolhido = JOptionPane.showInputDialog("Enter the name a user you want to delete :", "");
+       String NameEscolhido = JOptionPane.showInputDialog("Enter the CPF of the user that you want to delete :", "");
         this.userEditing = (User)this.userController.find(NameEscolhido);
         if(userEditing == null){
             JOptionPane.showMessageDialog(this,"There is no user with this name.");
@@ -363,14 +367,9 @@ public class JDialogUser extends javax.swing.JDialog {
                                       
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-     public void setBook(Book book)
-     {
-         this.book = book;
-     }
-     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JDialogSelectBook tela = new JDialogSelectBook(this, true);
-        tela.setVisible(true);
+        //JDialogSelectBook tela = new JDialogSelectBook(this, true);
+        //tela.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

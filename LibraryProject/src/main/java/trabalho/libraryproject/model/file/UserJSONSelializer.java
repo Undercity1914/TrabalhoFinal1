@@ -15,9 +15,14 @@ import trabalho.libraryproject.model.entities.User;
  */
 public class UserJSONSelializer 
 {
+    private String listagemUsusariosjson;
+    
+    public UserJSONSelializer(String listagemUsusariosjson) {
+        this.listagemUsusariosjson = listagemUsusariosjson;
+    }
     public String toFile(List<User> users) {
         try {
-            // Convertendo objeto filme para JSON 
+             
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(users);
 
@@ -28,13 +33,13 @@ public class UserJSONSelializer
         return null;
     }
 
-    // Desserializa JSON em formato String para um objeto Filme
+    
     public List<User> fromFile(String jsonString) {
         try {
             ObjectMapper mapper = new ObjectMapper();
              
             List<User> users = mapper.readValue(jsonString, new TypeReference<List<User>>() {});
-           // GerenciadorProduto produtos = mapper.readValue(jsonString, GerenciadorProduto.class);
+           
             
             return users;
         } catch (Exception e) {

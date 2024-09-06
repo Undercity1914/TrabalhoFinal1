@@ -1,0 +1,43 @@
+[
+    {
+      "title": "Effective Java",
+      "author": {
+        "name": "Joshua Bloch",
+        "age": "58",
+        "cpf": "12345678901"
+      },
+      "isbn": "9780134685991",
+      "publicationYear": "2018"
+    },
+    {
+      "title": "Clean Code",
+      "author": {
+        "name": "Robert C. Martin",
+        "age": "70",
+        "cpf": "98765432101"
+      },
+      "isbn": "9780132350884",
+      "publicationYear": "2008"
+    },
+    {
+      "title": "Design Patterns",
+      "author": {
+        "name": "Erich Gamma",
+        "age": "60",
+        "cpf": "11223344556"
+      },
+      "isbn": "9780201633610",
+      "publicationYear": "1994"
+    },
+    {
+      "title": "The Pragmatic Programmer",
+      "author": {
+        "name": "Andrew Hunt",
+        "age": "55",
+        "cpf": "99887766554"
+      },
+      "isbn": "9780201616224",
+      "publicationYear": "1999"
+    }
+  ]
+  

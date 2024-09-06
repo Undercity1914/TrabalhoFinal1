@@ -4,6 +4,7 @@
  */
 package trabalho.libraryproject.model.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import trabalho.libraryproject.model.entities.Book;
 import trabalho.libraryproject.model.file.BookJSONSerializer;
@@ -11,23 +12,25 @@ import trabalho.libraryproject.model.file.FilePersistence;
 
 /**
  *
- * @author marco
+ * @book marco
  */
 public class BookDAOFile implements IDao
 {
     private BookJSONSerializer serializer = new BookJSONSerializer();
     private FilePersistence filePersistence = new FilePersistence();
     private String patchFile;
+    private List<Book> books;
 
     public BookDAOFile(String patchFile) {
         this.patchFile = patchFile;
+        this.books = new ArrayList<>();
     }
 
     @Override
     public void save(Object objO) {
-        Book author = (Book) objO;
+        Book book = (Book) objO;
         List<Book> books = this.findAll();
-        books.add(author);
+        books.add(book);
         
         String jsonData = serializer.toFile(books);
         filePersistence.saveToFile(jsonData, this.patchFile);
@@ -35,19 +38,18 @@ public class BookDAOFile implements IDao
 
     @Override
     public void update(String codObjO, Object objO) {
-        throw new UnsupportedOperationException("""
-                                                ERROR! 
-                                                Unauthorized Access.""");
+       throw new UnsupportedOperationException("ERROR! \nUnauthorized Access.");
+
     }
 
     @Override
     public void remove(String codObjO) {
-        Book author = (Book) this.find(codObjO);
+        Book book = (Book) this.find(codObjO);
         
-        if(author != null)
+        if(book != null)
         {
             List<Book> books = this.findAll();
-            books.remove(author);
+            books.remove(book);
             
             String jsonData = serializer.toFile(books);
             filePersistence.saveToFile(jsonData, this.patchFile);
@@ -58,9 +60,9 @@ public class BookDAOFile implements IDao
     public Object find(String codObjO) {
         List<Book> books = this.findAll();
         
-        for(Book author : books)
-            if(author.getIsbn().equals(codObjO))
-                return author;
+        for(Book book : books)
+            if(book.getIsbn().equals(codObjO))
+                return book;
         
         return null;
     }

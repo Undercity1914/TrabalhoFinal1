@@ -7,6 +7,8 @@ package trabalho.libraryproject.view;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import trabalho.libraryproject.LibraryProject;
 
 /**
  *
@@ -20,6 +22,8 @@ public class JFrameLabrary extends javax.swing.JFrame {
     public JFrameLabrary() {
         initComponents();
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,23 +128,17 @@ public class JFrameLabrary extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBooksActionPerformed
-<<<<<<< HEAD
+
         JDialogBook tela1 = null;
         try {
             tela1 = new JDialogBook(this, true);
         } catch (SQLException ex) {
             Logger.getLogger(JFrameLabrary.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         tela1.setVisible(true);
-=======
-        JDialogBook tela = null;
-        try {
-            tela = new JDialogBook(this, true);
-        } catch (SQLException ex) {
-            Logger.getLogger(JFrameLabrary.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        tela.setVisible(true);
->>>>>>> 27351f04298b7be041eb5b0d7f81e75f633d74a9
+
+
     }//GEN-LAST:event_btnBooksActionPerformed
 
     private void btnAuthorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthorsActionPerformed
@@ -154,8 +152,14 @@ public class JFrameLabrary extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAuthorsActionPerformed
 
     private void btnUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsersActionPerformed
-       JDialogUser tela = new JDialogUser(this, true);
-       tela.setVisible(true);
+       JDialogUser tela;
+        try {
+            tela = new JDialogUser(this, true);
+            tela.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(JFrameLabrary.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela de usuários: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnUsersActionPerformed
 
 

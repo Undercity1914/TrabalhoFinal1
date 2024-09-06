@@ -38,10 +38,10 @@ public class JDialogBook extends javax.swing.JDialog {
         this.oldISBN = "";
         this.bookEditing = new Book();
         
-        //IDao bookJ = new BookDAOFile("ListagemAutores.json");
-        SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
-        IDao bookDao = new BookDAODataBase(conexao.getConnection()); 
-        this.bookController = new BookController(bookDao);
+        IDao bookJ = new BookDAOFile("ListagemBook.json");
+        //SQLiteConnector conexao = new SQLiteConnector("dataBase.sqlite");
+        //IDao bookDao = new BookDAODataBase(conexao.getConnection()); 
+        this.bookController = new BookController(bookJ);
         
         this.habilitarCampos(false);
         this.limparCampos();

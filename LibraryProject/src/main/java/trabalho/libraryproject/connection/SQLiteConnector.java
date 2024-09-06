@@ -16,10 +16,11 @@ import java.sql.Statement;
 public class SQLiteConnector 
 {
     private Connection connection;
+    private String url;
     
     public SQLiteConnector(String dataBaseName) throws SQLException
     {
-        String url = "jdbc:sqlite" + dataBaseName;
+        this.url = "jdbc:sqlite" + dataBaseName;
         this.connection = DriverManager.getConnection(url);
         
         createTableAuthor();
@@ -40,10 +41,7 @@ public class SQLiteConnector
             stmt.execute(sql);
         }catch(SQLException e)
         {
-            System.out.println("""
-                               ERRO!
-                               Cannot create the table.
-                               """ + e.getMessage());
+            System.out.println("ERRO!\nCannot create the table. \n" + e.getMessage());
         }
     }
 
@@ -59,10 +57,7 @@ public class SQLiteConnector
             stmt.execute(sql);
         }catch(SQLException e)
         {
-            System.out.println("""
-                               ERRO!
-                               Cannot create the table.
-                               """ + e.getMessage());
+            System.out.println("ERRO!\nCannot create the table.\n" + e.getMessage());
         }
     }
 
@@ -79,15 +74,19 @@ public class SQLiteConnector
             stmt.execute(sql);
         }catch(SQLException e)
         {
-            System.out.println("""
-                               ERRO!
-                               Cannot create the table.
-                               """ + e.getMessage());
+            System.out.println("ERRO!\nCannot create the table.\n" + e.getMessage());
         }
     }
 
-    public Connection getConnection() {
-        return connection;
+    public Connection getConnection() throws SQLException {
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("Driver SQLite não encontrado", e);
+        }
+        
+        // Retornando a conexão
+        return DriverManager.getConnection(url);
     }
 
     public void setConnection(Connection connection) {

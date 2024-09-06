@@ -37,12 +37,10 @@ public class AuthorDAODataBase implements IDao
             stmt.setString(3, author.getAge());
             stmt.setString(4, serializer.toFile(author.getBooks()));
             stmt.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("""
-                               ERROR! 
-                               Can't save Author.
-                               """ + e.getMessage());
-        }
+        } catch (SQLException e) {
+    System.out.println("ERROR! \nCan't save Author.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -59,13 +57,11 @@ public class AuthorDAODataBase implements IDao
             stmt.setString(4, serializer.toFile(author.getBooks()));
             stmt.executeUpdate();
             
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't update Author.
-                               """ + e.getMessage());
         }
+            catch (SQLException e) {
+    System.out.println("ERROR! \nCan't save Author.\n" + e.getMessage());
+}
+
     }
 
     @Override
@@ -73,12 +69,10 @@ public class AuthorDAODataBase implements IDao
         String sql = "DELETE FROM author WHERE cpf = ?";
         try(PreparedStatement stmt = connection.prepareStatement(sql)){
             stmt.setString(1, codObjO);
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't remove Author.
-                               """ + e.getMessage());
+        } catch (SQLException e) {
+    System.out.println("ERROR! \nCan't remove Author.\n" + e.getMessage());
+
+
         }
     }
 
@@ -100,13 +94,10 @@ public class AuthorDAODataBase implements IDao
                     );
                 }
             }
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't find Author.
-                               """ + e.getMessage());
-        }
+        } catch (SQLException e) {
+    System.out.println("ERROR! \nCan't find Author.\n" + e.getMessage());
+}
+
         
         return null;
     }
@@ -129,14 +120,10 @@ public class AuthorDAODataBase implements IDao
                             rs.getString("cpf")
                 ));
             }
-        }catch(SQLException e)
-        {
-            System.out.println("""
-                               ERROR! 
-                               Can't find Authors.
-                               """ + e.getMessage());
-        }
-        
+       } catch (SQLException e) {
+    System.out.println("ERROR! \nCan't find Author.\n" + e.getMessage());
+}
+
         return authors;
     }
     

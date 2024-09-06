@@ -4,6 +4,7 @@
  */
 package trabalho.libraryproject.model.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import trabalho.libraryproject.model.entities.Author;
 import trabalho.libraryproject.model.file.AuthorJSONSerializer;
@@ -15,12 +16,14 @@ import trabalho.libraryproject.model.file.FilePersistence;
  */
 public class AuthorDAOFile implements IDao
 {
-    private AuthorJSONSerializer serializer = new AuthorJSONSerializer();
+    private List<Author> authors;
+    private AuthorJSONSerializer serializer = new AuthorJSONSerializer("ListagemAutores.json");
     private FilePersistence filePersistence = new FilePersistence();
     private String patchFile;
 
     public AuthorDAOFile(String patchFile) {
         this.patchFile = patchFile;
+        this.authors = new ArrayList<>();
     }
 
     @Override
@@ -35,9 +38,7 @@ public class AuthorDAOFile implements IDao
 
     @Override
     public void update(String codObjO, Object objO) {
-        throw new UnsupportedOperationException("""
-                                                ERROR! 
-                                                Unauthorized Access.""");
+        throw new UnsupportedOperationException("ERROR! \nUnauthorized Access.");
     }
 
     @Override

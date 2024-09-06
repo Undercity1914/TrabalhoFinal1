@@ -33,10 +33,10 @@ public class JDialogAuthor extends javax.swing.JDialog {
         this.oldCpf = "";
         this.authorEditing = new Author();
         
-        //IDao authorJ = new AuthorJSONSerializer("ListagemAutores.json");
+        IDao authorJ = new AuthorDAOFile("ListagemAutores.json");
         //SQLiteConnector conexao = new SQLiteConnector("banco.sqlite");
         //IDao authorDao = new AuthorDAOFile(conexao.getConnection()); 
-        //this.authorController = new AuthorController(authorDao);
+        this.authorController = new AuthorController(authorJ);
        
         
         

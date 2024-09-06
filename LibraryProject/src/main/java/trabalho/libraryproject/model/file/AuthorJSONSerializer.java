@@ -16,9 +16,14 @@ import trabalho.libraryproject.model.entities.Author;
  */
 public class AuthorJSONSerializer 
 {
+    private String patchFile;
+    public AuthorJSONSerializer(String patchFile)
+    {
+        this.patchFile = patchFile;
+    }
     public String toFile(List<Author> authors) {
         try {
-            // Convertendo objeto filme para JSON 
+             
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(authors);
 
@@ -29,13 +34,13 @@ public class AuthorJSONSerializer
         return null;
     }
 
-    // Desserializa JSON em formato String para um objeto Filme
+    
     public List<Author> fromFile(String jsonString) {
         try {
             ObjectMapper mapper = new ObjectMapper();
              
             List<Author> authors = mapper.readValue(jsonString, new TypeReference<List<Author>>() {});
-           // GerenciadorProduto produtos = mapper.readValue(jsonString, GerenciadorProduto.class);
+           
             
             return authors;
         } catch (Exception e) {
